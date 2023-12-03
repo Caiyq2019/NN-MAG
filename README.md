@@ -14,14 +14,11 @@
 
 ## What can NeuralMAG do?
 
-- **Python-Powered**: Our project extends Python's simplicity to micromagnetic simulations, ensuring ease of use while fully integrating with scientific libraries like NumPy and PyTorch.
-- **Neural Network Precision**: Utilizing advanced deep learning architectures, our framework accurately predicts complex magnetic behaviors, significantly enhancing simulation fidelity.
-- **Optimized Performance**: Our just-in-time (JIT) compilation pipeline translates Pythonic descriptions into highly efficient parallel computations on GPUs or CPUs.
-- **Cross-Platform Portability**: Crafted for diversity, our simulations are executable across various computing environments, ensuring broad adaptability.
-- **Innovative Approach**: By marrying neural networks with micromagnetics, our project pioneers new methods for simulating magnetic phenomena, which were previously computationally intractable.
-
-Our neural network model, trained on multi-scale data, is capable of generalizing across different material systems and geometries, enabling researchers to leap from microscale insights to macroscale predictions with unprecedented accuracy.
-
+- **Integration with PyTorch Platform**: The project ports MAG micromagnetic simulations into the PyTorch framework, leveraging the high parallelization capabilities of GPUs.
+- **Cross-Scale Neural Network Simulation**: Utilizing a multi-scale Unet neural network architecture, our system efficiently simulates large-scale magnetic material systems.
+- **Material System Generalization**: The model effectively generalizes to unknown material systems, expanding the horizons for new material exploration.
+- **Versatile Micromagnetic Simulation Tasks**: Capable of various micromagnetic simulations such as predicting magnetic ground states, hysteresis loops, and simulations of arbitrary geometric shapes.
+- **Incorporating Advanced Deep Learning Optimization Techniques**: This framework effectively utilizes the latest model compression and acceleration optimization technologies available in contemporary deep learning platforms.
 
 ## Getting Started
 
