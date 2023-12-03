@@ -3,7 +3,7 @@
 </div>
 
 
-## What is Neural-Net Micromagnetic Simulation Project?
+## What is NeuralMAG Project?
 
 本项目是一个开源的用于微磁学模拟的神经网络新框架。它采用多尺度U-Net神经网络模型学习磁化状态与退磁场之间的物理关系，并能有效地将传统微磁学模拟扩展到深度学习新框架中，能够充分利用深度学习平台最先进的技术。
 
@@ -12,13 +12,16 @@
 
 本项目广泛应用于磁性材料研究等领域。
 
-## Why Your Project?
+## What can NeuralMAG do?
 
-- **内嵌于Python**：本项目与Python语法高度兼容，使算法编写门槛最低。同时，它也与Python生态系统（如NumPy和PyTorch）良好集成。
-- **灵活性**：项目提供了一套通用数据容器，能够适用于许多数值模拟用例。
-- **性能**：通过JIT编译器，将Python函数自动编译为高效的GPU或CPU机器码进行并行执行。
-- **可移植性**：编写一次代码，可在多种平台上运行。
-- ...更多特性！
+- **Python-Powered**: Our project extends Python's simplicity to micromagnetic simulations, ensuring ease of use while fully integrating with scientific libraries like NumPy and PyTorch.
+- **Neural Network Precision**: Utilizing advanced deep learning architectures, our framework accurately predicts complex magnetic behaviors, significantly enhancing simulation fidelity.
+- **Optimized Performance**: Our just-in-time (JIT) compilation pipeline translates Pythonic descriptions into highly efficient parallel computations on GPUs or CPUs.
+- **Cross-Platform Portability**: Crafted for diversity, our simulations are executable across various computing environments, ensuring broad adaptability.
+- **Innovative Approach**: By marrying neural networks with micromagnetics, our project pioneers new methods for simulating magnetic phenomena, which were previously computationally intractable.
+
+Our neural network model, trained on multi-scale data, is capable of generalizing across different material systems and geometries, enabling researchers to leap from microscale insights to macroscale predictions with unprecedented accuracy.
+
 
 ## Getting Started
 
