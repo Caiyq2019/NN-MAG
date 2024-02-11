@@ -3,6 +3,7 @@
 </div>
 
 
+
 ## Introduction to NeuralMAG Project
 
 The NeuralMAG Project is an open-source neural network framework designed for micromagnetic simulation. It employs a multi-scale U-Net neural network model to learn the physical relationship between magnetization states and demagnetizing fields, effectively extending traditional micromagnetic simulations into the realm of advanced deep learning frameworks. This approach fully leverages the cutting-edge technologies available on deep learning platforms.
@@ -37,7 +38,8 @@ Ensure your system meets the following prerequisites:
 
 This directory houses sample tasks, including:
 - **NMI**: Replicates the main experimental results presented in the manuscript.
-- **Demo**: Contains code for quick experimentation and familiarization with the tool. Pre-trained Unet model parameters used in the manuscript are located in `./egs/NMI/ckpt/k16`.
+- **Demo**: Contains code for quick experimentation and familiarization with the tool. 
+- **checkpoint**: Pre-trained Unet model parameters used in the manuscript are located in `./egs/NMI/ckpt/k16`,`./egs/demo/ckpt/k16`.
 
 #### Libraries (`./libs`)
 
@@ -49,7 +51,7 @@ Contains the core libraries of the project:
 #### Utilities (`./utils`)
 
 This directory includes scripts for data generation, essential for training the Unet model:
-- Scripts generate (m, Hd) pair data required for Unet training.
+- Scripts generate (spin, Hdemag) pair data required for Unet training.
 
 By following these instructions, users can set up the necessary environment to run simulations, replicate study findings, or train the Unet model with custom data.
 
@@ -61,33 +63,34 @@ By following these instructions, users can set up the necessary environment to r
 
 #### Quick Trial
 
-To swiftly simulate the MH curve of a magnetic thin film material, such as a material shaped as a triangle with two layers of thickness, having magnetic properties specified by `{ --Ms 1000, --Ax 0.5e-6, --Ku 0.0 }`, execute the following script:
+To expediently initiate the simulation of the MH curve for magnetic thin film materials, such as a material configured into a triangular shape with a dual-layer thickness, characterized by magnetic properties delineated by `{ --Ms 1000, --Ax 0.5e-6, --Ku 0.0 }`, please execute the following script:
 
 ```bash
 ./egs/demo/MH/runMH.sh
 ```
 
-This script will furnish a comparative analysis of the results obtained via FFT and Unet simulations.
+This script facilitates a comparative analysis of outcomes derived from FFT-based and Unet-based micromagnetic simulation frameworks.
 
-#### Replication of Published Results
 
-For replicating the MH experimental results presented in the manuscript, refer to the script below:
+### Replication of Published Results
+
+To replicate the MH experimental results detailed in the manuscript, please use the following script:
 
 ```bash
 ./egs/NMI/MH_evaluate/runMH.sh
 ```
 
-This script allows for the adjustment of the film's dimension through the `--width` parameter. It is configured with 18 distinct sets of magnetic property parameters:
+This script facilitates the adjustment of the film's dimensions via the `--width` parameter and is configured to test 18 unique combinations of magnetic property parameters:
 
-- `--Ms`: {1200, 1000, 800, 600, 400}
-- `--Ku`: {1e5, 2e5, 3e5, 4e5}
-- `--Ax`: {0.7e-6, 0.6e-6, 0.4e-6, 0.3e-6}
+- `--Ms` for saturation magnetization, with values: {1200, 1000, 800, 600, 400} (in arbitrary units),
+- `--Ku` for uniaxial anisotropy constant, with values: {1e5, 2e5, 3e5, 4e5} (in arbitrary units),
+- `--Ax` for exchange stiffness constant, with values: {0.7e-6, 0.6e-6, 0.4e-6, 0.3e-6} (in meters).
 
-The `--mask` parameter is designated for determining the shape of the film, inclusive of:
+The `--mask` parameter specifies the shape of the magnetic film, which can include:
 
-- Triangular films
-- Films with a central hole
-- Random polygonal films
+- Triangular films,
+- Films with a central hole,
+- Films of random polygonal shapes.
 
 
 #### Sample Result Images
@@ -97,81 +100,79 @@ Triangular film MH result | Film with a central hole MH result | Random polygona
 ![Triangular film MH result](MH_triangle.png) | ![Film with a central hole MH result](MH_hole.png) | ![Random polygonal film MH result](MH_square.png)
 
 
-
-
 ### Running Vortex Simulations
 
 #### Quick Trial
 
-To experiment with the iterative process based on the LLG (Landau-Lifshitz-Gilbert) dynamical equation starting from a random initial state, execute the script:
+To commence a micromagnetic dynamical analysis based on the LLG (Landau-Lifshitz-Gilbert) equation from a random initial condition, execute:
 
 ```bash
 ./egs/demo/vortex/run.sh
 ```
 
-This will initiate a simulation comparing FFT and Unet for 10 sets of default material magnetic parameters. The `--pre_core` option specifies the initial number of vortices predicted by Unet.
+This command initiates a simulation applying FFT (Fast Fourier Transform) until the vortex count meets the `--pre_core` parameter's specification, whereupon Unet modeling commences. The `--pre_core` parameter signifies the initial vortex count for transitioning from FFT to Unet simulation.
 
 #### Replication of Published Results
 
-For a detailed replication of the vortex simulation results presented in the manuscript, refer to the following script:
+For exact replication of the manuscript's vortex simulation outcomes, utilize:
 
 ```bash
 ./egs/NMI/vortex_evaluate/run.sh
 ```
 
-This script offers a comprehensive comparison of the Unet model's prediction accuracy across different initial vortex quantities. For each set of test conditions, 100 dynamical experiments are compared.
+This script provides a detailed evaluation of Unet's prediction accuracy across initial vortex counts (`--pre_core=5,10,20”), comparing results from 100 dynamical experiments per test condition to assess Unet's performance.
 
 #### Sample Result Images
 
-Vortex simulation with varying parameters | Vortex simulation with different shapes | Vortex simulation on a square lattice
+Varying Materials | Random Shapes | Square Films
 :-----------------------------------------:|:---------------------------------------:|:--------------------------------------:
-![Vortex simulation with varying parameters](vortex_rdparam.png) | ![Vortex simulation with different shapes](vortex_rdshape.png) | ![Vortex simulation on a square lattice](vortex_square.png)
+![Varying Materials](vortex_rdparam.png) | ![Random Shapes](vortex_rdshape.png) | ![Square Films](vortex_square.png)
 
 
 
+### Computational Speed Assessment
 
-### Running Speed Evaluation
-
-To compare the computational costs of micromagnetic simulations across different frameworks, you can execute the script:
+To assess the computational efficiency of micromagnetic simulations within distinct frameworks, the following command is recommended:
 
 ```bash
 ./egs/NMI/speed_evaluate/run.sh
 ```
 
-This allows for the configuration of comparative experiments for various film sizes via the `--width` option. The script conducts a comparative analysis of computational overheads across three frameworks:
+This command facilitates the setup of comparative analyses for micromagnetic films of variable dimensions through the `--width` parameter. It systematically evaluates the computational demands of three distinct simulation frameworks:
 
-- The conventional framework based on FFT
-- The deep neural network-based Unet framework
-- The Unet model accelerated by TensorRT
+- A traditional FFT-based approach,
+- The Unet framework, employing deep neural networks,
+- TensorRT-accelerated Unet modeling.
 
-This evaluation provides insights into the efficiency and performance improvements offered by integrating deep learning and acceleration technologies into micromagnetic simulation processes.
+This assessment elucidates the potential for efficiency gains and performance enhancements through the adoption of deep learning and acceleration technologies in micromagnetic simulation workflows.
 
 
-
-### Data Generation and Model Training
+### Data Generation and Model Training Process
 
 #### Data Generation
 
-The training data used in the manuscript can be generated with:
+The dataset referenced in our study is generated via:
 
 ```bash
 ./utils/run.sh
 ```
 
-This script automatically prepares data in four sizes: 32, 64, 96, and 128. Data for sizes 32, 64, and 96 are utilized for cross-scale model training, while size 128 data is employed for evaluating cross-scale generalization. In addition to the default square shape, random shape masks are generated for data augmentation. Furthermore, data with random masks are subjected to two different magnitudes of external magnetic fields, meaning each size of data is under three different conditions, with 100 samples per condition.
+The script automatically generates datasets in four sizes: 32, 64, 96, and 128. The first three sizes are for cross-scale training, while the 128 size assesses generalization across scales. Each size's dataset is developed under three conditions: a default square shape, and two scenarios involving random shape masks for augmentation, each additionally subjected to two magnitudes of external magnetic fields. Therefore, each size features three conditions with 100 samples each, facilitating a comprehensive evaluation of the model's robustness and scalability.
 
-A data visualization tool is also provided:
+For data inspection and analysis, a visualization utility is provided:
 
 ```bash
 ./utils/visualize_data.py
 ```
 
-Running this will yield visualizations of the generated data, including magnetic vector maps, RGB images, and numerical statistics histograms.
+Executing this script produces visual representations of the dataset, showcasing magnetic vector fields, RGB imagery, and histograms of numerical statistics, thereby facilitating a comprehensive overview of the training data's characteristics.
+
 
 Data Visualization Samples |  | 
 :-------------------------:|:-------------------------:
-![Magnetic vector map](Hds_vector.png) | ![Magnetic field histogram](Hd_hist.png)
-![RGB image of spins](Spins_rgb-1.png) | ![Spin vector map](Spins_vector-1.png)
+![demagnetizing field vector](Hds_vector.png) | ![demagnetizing field RGB](Hd_rgb.png)| ![demagnetizing field histogram](Hd_hist.png)
+![Spins RGB](Spins_rgb.png) | ![Spin vector](Spins_vector.png) | ![Spin histogram](Spins_hist.png)
+
 
 #### Model Training
 
@@ -181,14 +182,14 @@ Once the data is prepared, you can commence training your own Unet model by exec
 ./egs/demo/train/run_train.sh
 ```
 
-Adjust the training dataset size with `--ntrain`, representing the data volume for each size. `--ntest` specifies the size of the test dataset. Training hyperparameters such as `--batch-size`, `--lr`, and `--epochs` can be adjusted, with the default settings capable of reproducing the results presented in the manuscript. The `--kc` and `--inch` parameters define the network structure of the model; they should not be altered to maintain the model size. Information on intermediate models, convergence, and evaluations will be automatically saved during training.
+Adjust the volume of training data with `--ntrain` and set the test dataset size via `--ntest`. Training hyperparameters including `--batch-size`, `--lr` (learning rate), and `--epochs` are customizable to optimize performance, though default settings are provided to replicate manuscript results. Parameters `--kc` and `--inch`, crucial for the model's network architecture, remain fixed to preserve model dimensions. Training generates automated logs of model progress, including intermediate models, convergence metrics, and performance evaluations.
 
-To utilize your trained model for the micromagnetic simulation tasks mentioned above, simply replace the model file in `./egs/NMI/ckpt/k16/model.pt` with your trained model.
+To apply the trained model to micromagnetic simulations, replace the existing model at `./egs/NMI/ckpt/k16/model.pt` with the newly trained model.
+
 
 Model Training Visualizations |  | 
 :-----------------------------:|:-----------------------------:
-![Training loss example](loss_ex1.0-1.png) | ![Layer 1 RGB output after training](epoch820_L1_rgb.png)
-![Layer 2 Vector output after training](epoch820_L2_vec.png) | ![Layer 1 Vector output after training](epoch820_L1_vec.png)
+![Training loss example](loss_ex1.0-1.png) | ![Layer 1 RGB output after training](epoch820_L1_rgb.png) | ![Layer 1 Vector output after training](epoch820_L1_vec.png)
 
 
 
@@ -198,7 +199,7 @@ Model Training Visualizations |  |
 
 ## Documentation
 
-- [技术文档](LINK_TO_YOUR_DOCUMENTATION)
+- [Paper Citation](LINK_TO_YOUR_DOCUMENTATION)
 - [API参考](LINK_TO_YOUR_DOCUMENTATION)
 
 
