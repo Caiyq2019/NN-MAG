@@ -39,7 +39,7 @@ Ensure your system meets the following prerequisites:
 This directory houses sample tasks, including:
 - **NMI**: Replicates the main experimental results presented in the manuscript.
 - **Demo**: Contains code for quick experimentation and familiarization with the tool. 
-- **checkpoint**: Pre-trained Unet model parameters used in the manuscript are located in `./egs/NMI/ckpt/k16`,`./egs/demo/ckpt/k16`.
+- **Checkpoint**: Pre-trained Unet model parameters used in the manuscript are located in `./egs/NMI/ckpt/k16`,`./egs/demo/ckpt/k16`.
 
 #### Libraries (`./libs`)
 
@@ -72,7 +72,7 @@ To expediently initiate the simulation of the MH curve for magnetic thin film ma
 This script facilitates a comparative analysis of outcomes derived from FFT-based and Unet-based micromagnetic simulation frameworks.
 
 
-### Replication of Published Results
+#### Replication of Published Results
 
 To replicate the MH experimental results detailed in the manuscript, please use the following script:
 
